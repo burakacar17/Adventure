@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class PlayerHareketKontrol : MonoBehaviour
 {
-    [SerializeField]
+    
     Rigidbody2D rb;
 
-    public float hareketHizi;
-    public float ziplamaGucu;
+    [SerializeField]
+    float hareketHizi;
+
+    [SerializeField]
+    float ziplamaGucu;
+
+    bool zemindeMi;
 
     void Awake()
     {
@@ -19,11 +24,36 @@ public class PlayerHareketKontrol : MonoBehaviour
     void Update()
     {
         HareketEt();
+        Ziplama();
+        
+        
     }
 
     void HareketEt()
     {
         float h = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(h * hareketHizi, rb.velocity.y);
+        rb.velocity = new Vector2(h * hareketHizi, rb.velocity.y);       
+
     }
+
+    void Ziplama()
+    {
+        if(zemindeMi && Input.GetButtonDown("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, ziplamaGucu);
+            zemindeMi = false;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Zemin"))
+        {
+            zemindeMi = true;      
+
+        }
+    }
+
+
+
+
 }
