@@ -13,7 +13,8 @@ public class PlayerHareketKontrol : MonoBehaviour
     [SerializeField]
     float ziplamaGucu;
 
-    bool zemindeMi;
+    public bool zemindeMi;
+    public bool doubleJump;
 
     void Awake()
     {
@@ -38,17 +39,28 @@ public class PlayerHareketKontrol : MonoBehaviour
 
     void Ziplama()
     {
-        if(zemindeMi && Input.GetButtonDown("Jump"))
+        if((zemindeMi || doubleJump) && Input.GetButtonDown("Jump"))
         {
+            if (zemindeMi)
+            {
+                doubleJump = true;
+            }
+            else
+            {
+                doubleJump = false;
+            }
+
             rb.velocity = new Vector2(rb.velocity.x, ziplamaGucu);
             zemindeMi = false;
+            
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Zemin"))
         {
-            zemindeMi = true;      
+            zemindeMi = true;
+            
 
         }
     }
