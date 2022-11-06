@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Zemin
+    uniqueID: 2868721097
+    locked: 0
+  - name: Objeler
+    uniqueID: 2788942043
+    locked: 0
+  - name: Efektler
+    uniqueID: 4039590433
+    locked: 0
+  - name: Player
+    uniqueID: 3934011193
+    locked: 0
