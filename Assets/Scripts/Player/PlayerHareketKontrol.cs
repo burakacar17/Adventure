@@ -13,12 +13,15 @@ public class PlayerHareketKontrol : MonoBehaviour
     [SerializeField]
     float ziplamaGucu;
 
+    Animator animator;
+
     public bool zemindeMi;
     public bool doubleJump;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     
@@ -26,14 +29,19 @@ public class PlayerHareketKontrol : MonoBehaviour
     {
         HareketEt();
         Ziplama();
-        
-        
+        animator.SetBool("zemindeMi", zemindeMi);
+
+
+
+
     }
 
     void HareketEt()
     {
         float h = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(h * hareketHizi, rb.velocity.y);       
+        rb.velocity = new Vector2(h * hareketHizi, rb.velocity.y);
+        animator.SetFloat("hareketHizi", Mathf.Abs(rb.velocity.x));
+
 
     }
 
@@ -52,7 +60,11 @@ public class PlayerHareketKontrol : MonoBehaviour
 
             rb.velocity = new Vector2(rb.velocity.x, ziplamaGucu);
             zemindeMi = false;
+
             
+
+
+
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
